@@ -2,7 +2,7 @@
 
 [English](README.md) | **한국어**
 
-ChatGPT 채팅 사용량으로 쓰는 작은 번역기입니다. API 키나 별도 API 요금은 필요 없습니다. 쓰고 있는 ChatGPT 요금제의 한도는 그대로 적용됩니다.
+ChatGPT 채팅 사용량으로 쓰는 작은 번역기입니다. OAuth, 구독 사용량 제한, API 키나 별도 API 요금은 필요 없습니다. 쓰고 있는 ChatGPT 요금제의 한도는 그대로 적용됩니다.
 
 ![원문을 선택하면 번역문의 대응 표현이 강조됩니다](docs/images/vibe-translator-usage.png)
 

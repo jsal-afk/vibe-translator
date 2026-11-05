@@ -2,7 +2,7 @@
 
 **English** | [한국어](README.ko.md)
 
-A small free unlimited translator that uses your ChatGPT CHAT allowance. No agentic useage limits. No API key or separate API bill.
+A small, free, unlimited translator that uses your ChatGPT CHAT allowance. No agentic useage limits. No API key or separate API bill.
 
 ![Message to a friend tone with a slang instruction and linked highlights](docs/images/vibe-translator-usage-en.png)
 

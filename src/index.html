@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>vibe 번역기</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="titlebar"><span id="app-name" class="titlebar-name">vibe 번역기</span><button id="settings-toggle" class="icon-button" data-i18n-title="settings.title" data-i18n-aria-label="settings.title" title="Settings" aria-label="Settings">⚙</button></header>
+  <main>
+    <div class="connection-row"><button id="connection-button" class="connection"><span id="connection-dot" class="dot"></span><span id="connection-label"></span></button></div>
+    <section id="settings" class="settings" hidden>
+      <div class="settings-header"><strong data-i18n="settings.title">Settings</strong><button id="settings-close" class="icon-button" data-i18n-title="settings.close" data-i18n-aria-label="settings.close" title="Close settings" aria-label="Close settings">×</button></div>
+      <p id="connection-detail" role="status"></p>
+      <div class="settings-actions"><button id="login" class="secondary" data-i18n="settings.openChatGPT">Open ChatGPT window</button><button id="logout" class="text-button" data-i18n="settings.logout">Log out</button></div>
+      <label class="pin-label"><input id="pin" type="checkbox"><span data-i18n="settings.alwaysOnTop">Always on top</span></label>
+      <div class="settings-language"><label for="ui-language" data-i18n="uiLanguage.label">App language</label><select id="ui-language" data-i18n-aria-label="uiLanguage.label" aria-label="App language" disabled></select><p class="help" data-i18n="settings.appLanguageHelp">This changes the app interface only.</p></div>
+      <p class="help"><span data-i18n="settings.openShortcut">Open</span> <kbd id="toggle-shortcut">⌥ ⇧ L</kbd> · <span data-i18n="settings.pasteShortcut">Paste</span> <kbd id="paste-shortcut">⌥ ⇧ T</kbd></p>
+    </section>
+    <div class="toolbar">
+      <div class="target-control">
+        <label for="target-language" data-i18n="target.label">Translate into</label>
+        <div class="target-combobox">
+          <input id="target-language" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="target-suggestions" data-i18n-placeholder="target.placeholder" data-i18n-aria-label="target.label" autocomplete="off" spellcheck="false" dir="auto" placeholder="e.g. polite Japanese for a hotel guest" aria-label="Translate into" disabled>
+          <ul id="target-suggestions" class="target-suggestions" role="listbox" data-i18n-aria-label="target.suggestions" aria-label="Suggested targets" hidden></ul>
+        </div>
+        <p id="target-help" class="help" data-i18n="target.help">Enter a language or describe the audience, context, or style you want in natural language.</p>
+      </div>
+      <div class="effort-control"><label for="effort" data-i18n="reasoning.label">Reasoning</label><select id="effort" data-i18n-aria-label="reasoning.label" aria-label="Reasoning" disabled><option value="web-0" data-i18n="reasoning.placeholder">Check after connecting</option></select></div>
+    </div>
+    <div class="tone-row">
+      <label for="tone" data-i18n="tone.label">Style</label><select id="tone" data-i18n-aria-label="tone.selectorLabel" aria-label="Translation style"></select>
+      <input id="tone-context" type="text" maxlength="500" data-i18n-placeholder="tone.contextPlaceholder" data-i18n-aria-label="tone.contextAriaLabel" placeholder="Situation or desired writing style (optional)" aria-label="Situation or desired writing style" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="editors">
+      <section class="editor source-editor">
+        <div class="editor-label"><span id="source-label" data-i18n="source.original">Original</span><div><button id="paste" class="text-button" data-i18n="action.paste">Paste</button><button id="clear" class="icon-button" data-i18n-title="action.clear" data-i18n-aria-label="action.clear" title="Clear text" aria-label="Clear text">×</button></div></div>
+        <textarea id="input" data-i18n-placeholder="input.placeholder" data-i18n-aria-label="input.ariaLabel" placeholder="Type or paste text to translate." spellcheck="false" maxlength="24000" autofocus aria-label="Original text" dir="auto"></textarea>
+        <div class="editor-foot"><span id="character-count">0 / 24,000</span><span><kbd>↵</kbd> <span data-i18n="input.enterHint">translate</span> · <kbd>⇧ ↵</kbd> <span data-i18n="input.shiftEnterHint">new line</span></span></div>
+      </section>
+      <section class="editor result-editor">
+        <div class="editor-label"><span id="target-label" data-i18n="result.translation">Translation</span><button id="copy" class="text-button" disabled><span data-i18n="action.copy">Copy</span> <kbd id="copy-shortcut">⌘ ⇧ C</kbd></button></div>
+        <textarea id="output" data-i18n-placeholder="result.placeholder" data-i18n-aria-label="result.ariaLabel" placeholder="Translation appears here." readonly aria-label="Translation" dir="auto"></textarea>
+        <div class="editor-foot"><span id="result-meta"></span><span id="result-state"></span></div>
+      </section>
+    </div>
+    <footer><div class="footer-status"><div id="stage-indicator" class="stage-indicator" aria-live="polite" hidden></div><div id="status" role="status" aria-live="polite"></div></div><button id="swap" class="icon-button" data-i18n-title="action.swap" data-i18n-aria-label="action.swap" title="Swap original and translation" aria-label="Swap original and translation" disabled>⇄</button><button id="translate" class="primary" disabled><span id="translate-label">Translate</span><span>↗</span></button></footer>
+  </main>
+  <dialog id="target-dialog" aria-labelledby="target-dialog-title" aria-describedby="target-dialog-description">
+    <form class="target-dialog-form" method="dialog">
+      <h2 id="target-dialog-title"></h2>
+      <p id="target-dialog-description"></p>
+      <label id="dialog-target-label" class="sr-only" for="dialog-target-language" data-i18n="target.label">Translate into</label>
+      <div class="target-combobox">
+        <input id="dialog-target-language" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="dialog-target-suggestions" data-i18n-placeholder="target.placeholder" data-i18n-aria-label="target.label" autocomplete="off" spellcheck="false" dir="auto" placeholder="e.g. polite Japanese for a hotel guest" aria-label="Translate into">
+        <ul id="dialog-target-suggestions" class="target-suggestions" role="listbox" data-i18n-aria-label="target.suggestions" aria-label="Suggested targets" hidden></ul>
+      </div>
+      <div class="dialog-actions"><button id="target-dialog-cancel" class="secondary" type="button" data-i18n="target.cancel">Cancel</button><button id="target-dialog-accept" class="primary" type="button">Continue</button></div>
+    </form>
+  </dialog>
+  <script src="messages.js"></script>
+  <script src="i18n.js"></script>
+  <script src="alignment.js"></script>
+  <script src="editor-links.js"></script>
+  <script src="language-policy.js"></script>
+  <script src="target-language.js"></script>
+  <script src="tone.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>

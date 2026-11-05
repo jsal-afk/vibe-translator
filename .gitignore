@@ -1,0 +1,15 @@
+node_modules/
+build/
+coverage/
+.cache/
+.env
+.env.*
+*.log
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+profiles/
+userData/
+sessionData/
+.DS_Store

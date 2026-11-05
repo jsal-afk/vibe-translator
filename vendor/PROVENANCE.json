@@ -1,0 +1,18 @@
+{
+  "repository": "https://github.com/miuuyy/codex-chatgpt-web",
+  "commit": "fa2d2c6c24926078b46eedb2186f69f2e8d548d7",
+  "license": "MIT",
+  "files": [
+    "src/chatgpt-session.ts (compiled as chatgpt-session.cjs)",
+    "launcher/electron/chatgpt-auth-session.cjs",
+    "launcher/electron/browser-announcements.cjs"
+  ],
+  "backports": [
+    {
+      "commit": "860fa576eb47d9e20d7d8289235bfea94392d2fd",
+      "file": "src/chatgpt-ui/model-picker.ts",
+      "change": "Inline reasoning composer trigger selector."
+    }
+  ],
+  "adaptation": "Reuse web session verification, announcement handling, composer/model/response selectors. Translate-only automation, verbatim discovery of web reasoning labels, minimum effort default, and idle prewarming are new. The web model is left selected by the user. No Codex configuration or OAuth integration."
+}

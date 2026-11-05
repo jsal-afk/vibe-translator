@@ -4,7 +4,7 @@
 
 A small translator that uses your ChatGPT chat allowance. No API key or separate API bill. Your ChatGPT plan's limits still apply.
 
-![Translate a phrase and highlight its counterpart](docs/images/vibe-translator-usage.png)
+![Message to a friend tone with a slang instruction and linked highlights](docs/images/vibe-translator-usage-en.png)
 
 ## Install
 
@@ -19,7 +19,9 @@ The Mac app isn't notarized, and the Windows installer isn't signed, so your OS 
 
 Open the app, sign in to ChatGPT when asked, and paste some text. Enter translates; Shift+Enter adds a new line.
 
-Type a language or describe what you want: `Japanese for a customer email`, for example. Language names autocomplete, so `kor` and Enter selects Korean. The tone field takes plain instructions too: `short and casual`, `polite, but not stiff`.
+For example, paste `¿Vienes esta noche? Avísame cuando salgas y te guardo un sitio.`, set the target to `English`, choose `Message to a friend` under Tone, and type `slang` in Situation.
+
+You can also describe a target in plain language. Language names autocomplete, so `kor` and Enter selects Korean.
 
 The translation appears first; sentence and word links follow. Select a phrase to highlight its counterpart. You can edit or clear the original while either step is running.
 
